@@ -50,10 +50,10 @@
 		?>
 	</head>
 	<body>
-		<div id="wrapper">
+		<div class="page-wrapper">
 			<?php echo $this->element('navbar') ?>
 
-			<div id="page">
+			<div class="page-container">
 				<div class="notifications">
 					<?php
 					echo $this->Flash->render('auth');
@@ -82,7 +82,7 @@
 					</div>
 				</div>
 
-				<div id="content">
+				<div class="page-content">
 					<?php
 					if (isset($tasks)):
 						echo $this->Html->generateLinkList($tasks, array('class' => 'nav nav-pills page-tasks'));
@@ -93,7 +93,7 @@
 						<?php echo (!empty($title_for_view) ? h($title_for_view) : h($title_for_layout)) ?>
 					</h3>
 
-					<div id="view" class="clearfix">
+					<div class="page-view clearfix">
 						<?php echo $this->fetch('content') ?>
 					</div>
 				</div>

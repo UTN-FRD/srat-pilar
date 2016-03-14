@@ -13,48 +13,55 @@
 
 .breadcrumb,
 .page-header {
-	display: none
+	display: none;
 }
 
-#content {
+.page-content {
+	padding: 0;
+
 	background: url('../img/app/login.jpg') no-repeat;
-	padding: 0
 }
 
-#content form {
-	float: right;
+.page-content form {
 	position: relative;
+	top: 268px;
 	right: 60px;
-	top: 268px
+
+	float: right;
 }
 
-#content form label {
-	color: #fff;
+.page-content form label {
 	font-size: 14px;
-	font-weight: bold
+	font-weight: bold;
+
+	color: #fff;
 }
 
-#content form .control-group {
-	margin-bottom: 20px
+.page-content form .control-group {
+	margin-bottom: 20px;
 }
 
-#content form label span.required {
-	display: none
+.page-content form label .required {
+	display: none;
 }
 
-#content form input {
-	-moz-border-radius: 0;
-	-webkit-border-radius: 0;
-	border-radius: 0;
+.page-content form input {
 	font-family: 'Open Sans';
 	font-size: 24px;
+
+	width: 250px;
 	height: auto;
-	width: 250px
+
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
 }
 
-#content form button {
-	float: right;
+.page-content form button {
 	font-size: 13px;
 	font-weight: bold;
-	position: relative
+
+	position: relative;
+
+	float: right;
 }
