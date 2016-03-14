@@ -66,36 +66,6 @@ class UsuariosController extends AppController {
  * @return void
  */
 	public function dashboard() {
-		/*if ($this->request->is('post')) {
-			$data = $this->request->data['Registro'];
-			if ($this->Usuario->Registro->validateMany($data)) {
-				$data = array_filter($data);
-				if (!empty($data)) {
-					if ($this->Usuario->Registro->saveMany($data, array('validate' => false))) {
-						$this->_notify('record_created');
-					} else {
-						$this->_notify('record_not_saved');
-					}
-				} else {
-					$this->_notify(null, array(
-						'level' => 'info',
-						'message' => 'La operación se ha completado exitosamente pero no se han realizado cambios.',
-						'redirect' => true
-					));
-				}
-			} elseif (!empty($this->Usuario->Registro->validationErrors)) {
-				$this->_notify(null, array(
-					'level' => 'warning',
-					'message' => 'La operación no se ha completado debido a que uno o más valores no son válidos.',
-				));
-			}
-		}
-
-		if (!$this->request->data) {
-			$this->request->data = $this->Usuario->getCargos($this->Auth->user('id'));
-		}
-
-		$this->set('title_for_layout', 'Asignaturas');*/
 	}
 
 /**
