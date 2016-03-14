@@ -13,11 +13,6 @@
  */
 
 /**
- * CSS
- */
-$this->Html->css('cargos', array('inline' => false));
-
-/**
  * Breadcrumbs
  */
 $this->Html->addCrumb('Administrar');
