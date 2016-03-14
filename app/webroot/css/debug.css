@@ -11,40 +11,36 @@
  * @author Jorge Alberto Cricelli <jacricelli@gmail.com>
  */
 
-.sql-log
-{
-    font-size: .9em;
+.sql-log {
+	font-size: .9em;
 
-    width: 98%;
-    margin: 30px auto;
+	width: 98%;
+	margin: 30px auto;
 
-    border-color: #ccc;
-    background: #fff;
+	border-color: #ccc;
+	background: #fff;
 }
 
-.sql-log caption
-{
-    padding-bottom: 4px;
+.sql-log caption {
+	padding-bottom: 4px;
 
-    text-align: center;
+	text-align: center;
 
-    color: navy;
+	color: navy;
 }
 
 .sql-log > thead > tr > th,
 .sql-log > tbody > tr > th,
 .sql-log > thead > tr > td,
-.sql-log > tbody > tr > td
-{
-    border: 1px solid #ccc;
+.sql-log > tbody > tr > td {
+	border: 1px solid #ccc;
 }
 
 .sql-log thead th:nth-child(1),
-.sql-log tbody td:nth-child(1)
-{
-    width: 50px;
+.sql-log tbody td:nth-child(1) {
+	width: 50px;
 
-    text-align: center;
+	text-align: center;
 }
 
 .sql-log thead th:nth-child(3),
@@ -54,14 +50,12 @@
 .sql-log tbody td:nth-child(3),
 .sql-log tbody td:nth-child(4),
 .sql-log tbody td:nth-child(5),
-.sql-log tbody td:nth-child(6)
-{
-    width: 80px;
+.sql-log tbody td:nth-child(6) {
+	width: 80px;
 
-    text-align: right;
+	text-align: right;
 }
 
-.sql-log tbody tr:hover
-{
-    background-color: #ffffdf;
+.sql-log tbody tr:hover {
+	background-color: #ffffdf;
 }
