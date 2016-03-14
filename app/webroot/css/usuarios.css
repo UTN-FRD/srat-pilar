@@ -20,6 +20,12 @@ table.usuarios thead tr th:nth-child(6) {
 	width: 110px
 }
 
+table.usuarios thead tr th:nth-child(7),
+table.usuarios tbody tr td:nth-child(7) {
+	text-align: right;
+	width: 120px
+}
+
 table.usuarios thead tr th:nth-child(2),
 table.usuarios tbody tr td:nth-child(2) {
 	text-align: center
