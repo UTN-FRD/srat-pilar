@@ -91,29 +91,12 @@ $links = array(
 	),
 	array(
 		'condition' => $isAdmin,
-		'text' => 'Reportes',
-		'dropdown' => array(
-			array(
-				'text' => 'Generar reporte',
-				'url' => array(
-					'controller' => 'registros',
-					'action' => 'generar_reporte',
-					'admin' => true,
-					'plugin' => false
-				)
-			),
-			array(
-				'divider' => true
-			),
-			array(
-				'text' => 'Asistencia general',
-				'url' => array(
-					'controller' => 'registros',
-					'action' => 'asistencia_general',
-					'admin' => true,
-					'plugin' => false
-				)
-			)
+		'text' => 'Registros',
+		'url' => array(
+			'controller' => 'registros',
+			'action' => 'index',
+			'admin' => true,
+			'plugin' => false
 		)
 	),
 	array(
