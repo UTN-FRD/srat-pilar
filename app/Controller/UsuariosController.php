@@ -66,7 +66,7 @@ class UsuariosController extends AppController {
  * @return void
  */
 	public function dashboard() {
-		if ($this->request->is('post')) {
+		/*if ($this->request->is('post')) {
 			$data = $this->request->data['Registro'];
 			if ($this->Usuario->Registro->validateMany($data)) {
 				$data = array_filter($data);
@@ -95,7 +95,7 @@ class UsuariosController extends AppController {
 			$this->request->data = $this->Usuario->getCargos($this->Auth->user('id'));
 		}
 
-		$this->set('title_for_layout', 'Asignaturas');
+		$this->set('title_for_layout', 'Asignaturas');*/
 	}
 
 /**
