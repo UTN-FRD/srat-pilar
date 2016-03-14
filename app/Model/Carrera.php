@@ -16,11 +16,11 @@
 App::uses('AppModel', 'Model');
 
 /**
- * AsignaturasCarrera
+ * Carrera
  *
  * @author Jorge Alberto Cricelli <jacricelli@gmail.com>
  */
-class AsignaturasCarrera extends AppModel {
+class Carrera extends AppModel {
 
 /**
  * Comportamientos
@@ -49,9 +49,7 @@ class AsignaturasCarrera extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'Asignatura' => array(
-			'foreignKey' => 'carrera_id'
-		)
+		'Asignatura'
 	);
 
 /**

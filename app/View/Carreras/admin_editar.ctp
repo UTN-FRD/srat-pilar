@@ -19,7 +19,7 @@ $this->Html->addCrumb('Administrar');
 $this->Html->addCrumb('Carreras', array('action' => 'index'));
 $this->Html->addCrumb('Editar');
 ?>
-<?php echo $this->Form->create('AsignaturasCarrera', array('class' => 'form-vertical')) ?>
+<?php echo $this->Form->create('Carrera', array('class' => 'form-vertical')) ?>
 <ul>
 	<li>Los campos indicados con <span class="required">*</span>son obligatorios.</li>
 	<?php if ($associated): ?>

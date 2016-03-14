@@ -81,7 +81,7 @@ $links = array(
 			array(
 				'text' => 'Carreras',
 				'url' => array(
-					'controller' => 'asignaturas_carreras',
+					'controller' => 'carreras',
 					'action' => 'index',
 					'admin' => true,
 					'plugin' => false

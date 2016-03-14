@@ -47,18 +47,18 @@ if (!empty($rows)):
 	$start = $this->Paginator->counter(array('format' => '%start%'));
 	foreach ($rows as $rid => $row):
 		$tasks = array(
-			$this->Html->link('editar', array('action' => 'editar', $row['AsignaturasCarrera']['id'])),
+			$this->Html->link('editar', array('action' => 'editar', $row['Carrera']['id'])),
 			$this->Form->postLink(
 				'eliminar',
-				array('action' => 'eliminar', $row['AsignaturasCarrera']['id']),
+				array('action' => 'eliminar', $row['Carrera']['id']),
 				array('class' => 'delete', 'method' => 'delete')
 			)
 		);
 
 		$rows[$rid] = array(
 			$start++,
-			h($row['AsignaturasCarrera']['nombre']),
-			nl2br(h($row['AsignaturasCarrera']['obs'])),
+			h($row['Carrera']['nombre']),
+			nl2br(h($row['Carrera']['obs'])),
 			implode(' ', $tasks)
 		);
 	endforeach;

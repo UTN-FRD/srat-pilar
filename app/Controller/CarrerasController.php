@@ -16,11 +16,11 @@
 App::uses('AppController', 'Controller');
 
 /**
- * AsignaturasCarreras
+ * Carreras
  *
  * @author Jorge Alberto Cricelli <jacricelli@gmail.com>
  */
-class AsignaturasCarrerasController extends AppController {
+class CarrerasController extends AppController {
 
 /**
  * Componentes
@@ -45,7 +45,7 @@ class AsignaturasCarrerasController extends AppController {
 	public function admin_index() {
 		$this->Prg->commonProcess();
 		$this->Paginator->settings += array(
-			'conditions' => $this->AsignaturasCarrera->parseCriteria($this->Prg->parsedParams())
+			'conditions' => $this->Carrera->parseCriteria($this->Prg->parsedParams())
 		);
 
 		$this->set(array(
@@ -62,9 +62,9 @@ class AsignaturasCarrerasController extends AppController {
  */
 	public function admin_agregar() {
 		if ($this->request->is('post')) {
-			if ($this->AsignaturasCarrera->save($this->request->data)) {
+			if ($this->Carrera->save($this->request->data)) {
 				$this->_notify('record_created');
-			} elseif (empty($this->AsignaturasCarrera->validationErrors)) {
+			} elseif (empty($this->Carrera->validationErrors)) {
 				$this->_notify('record_not_saved');
 			}
 		}
@@ -85,25 +85,25 @@ class AsignaturasCarrerasController extends AppController {
  * @throws NotFoundException Si el registro no existe
  */
 	public function admin_editar($id = null) {
-		$this->AsignaturasCarrera->id = $id;
-		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->AsignaturasCarrera->exists()) {
+		$this->Carrera->id = $id;
+		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->Carrera->exists()) {
 			throw new NotFoundException;
 		}
 
 		if ($this->request->is('put')) {
-			if ($this->AsignaturasCarrera->save($this->request->data)) {
+			if ($this->Carrera->save($this->request->data)) {
 				$this->_notify('record_modified');
-			} elseif (empty($this->AsignaturasCarrera->validationErrors)) {
+			} elseif (empty($this->Carrera->validationErrors)) {
 				$this->_notify('record_not_saved');
 			}
 		}
 
 		if (!$this->request->data) {
-			$this->request->data = $this->AsignaturasCarrera->read(array('id', 'nombre', 'obs'));
+			$this->request->data = $this->Carrera->read(array('id', 'nombre', 'obs'));
 		}
 
 		$this->set(array(
-			'associated' => $this->AsignaturasCarrera->hasAssociations(),
+			'associated' => $this->Carrera->hasAssociations(),
 			'title_for_layout' => 'Editar - Carreras - Administrar',
 			'title_for_view' => 'Editar carrera'
 		));
@@ -124,16 +124,16 @@ class AsignaturasCarrerasController extends AppController {
 			throw new MethodNotAllowedException;
 		}
 
-		$this->AsignaturasCarrera->id = $id;
-		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->AsignaturasCarrera->exists()) {
+		$this->Carrera->id = $id;
+		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->Carrera->exists()) {
 			throw new NotFoundException;
 		}
 
 		$notify = 'record_not_deleted';
-		if ($this->AsignaturasCarrera->hasAssociations()) {
+		if ($this->Carrera->hasAssociations()) {
 			$notify = 'record_delete_associated';
 		} else {
-			if ($this->AsignaturasCarrera->delete()) {
+			if ($this->Carrera->delete()) {
 				$notify = 'record_deleted';
 			}
 		}
