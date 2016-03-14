@@ -30,7 +30,6 @@ class MateriasController extends AppController {
 	public $components = array(
 		'Search.Prg',
 		'Paginator' => array(
-			'fields' => array('id', 'nombre', 'obs'),
 			'limit' => 15,
 			'maxLimit' => 15,
 			'order' => array('nombre' => 'asc')
@@ -63,9 +62,10 @@ class MateriasController extends AppController {
 	public function admin_agregar() {
 		if ($this->request->is('post')) {
 			if ($this->Materia->save($this->request->data)) {
-				$this->_notify('record_created');
+				$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+				$this->redirect($this->request->here);
 			} elseif (empty($this->Materia->validationErrors)) {
-				$this->_notify('record_not_saved');
+				$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 			}
 		}
 
@@ -86,20 +86,21 @@ class MateriasController extends AppController {
  */
 	public function admin_editar($id = null) {
 		$this->Materia->id = $id;
-		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->Materia->exists()) {
+		if (!$this->Materia->exists()) {
 			throw new NotFoundException;
 		}
 
 		if ($this->request->is('put')) {
 			if ($this->Materia->save($this->request->data)) {
-				$this->_notify('record_modified');
+				$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+				$this->redirect(array('action' => 'index'));
 			} elseif (empty($this->Materia->validationErrors)) {
-				$this->_notify('record_not_saved');
+				$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 			}
 		}
 
 		if (!$this->request->data) {
-			$this->request->data = $this->Materia->read(array('id', 'nombre', 'obs'));
+			$this->request->data = $this->Materia->read();
 		}
 
 		$this->set(array(
@@ -125,18 +126,19 @@ class MateriasController extends AppController {
 		}
 
 		$this->Materia->id = $id;
-		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->Materia->exists()) {
+		if (!$this->Materia->exists()) {
 			throw new NotFoundException;
 		}
 
-		$notify = 'record_not_deleted';
 		if ($this->Materia->hasAssociations()) {
-			$notify = 'record_delete_associated';
+			$this->Flash->warning('La operación solicitada no se ha completado debido a que el registro se encuentra asociado.');
 		} else {
 			if ($this->Materia->delete()) {
-				$notify = 'record_deleted';
+				$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+			} else {
+				$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 			}
 		}
-		$this->_notify($notify);
+		$this->redirect(array('action' => 'index'));
 	}
 }

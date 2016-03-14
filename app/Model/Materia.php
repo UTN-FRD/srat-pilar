@@ -83,4 +83,23 @@ class Materia extends AppModel {
 			'message' => 'El valor de este campo no debe superar los 255 caracteres'
 		)
 	);
+
+/**
+ * Método auxiliar para manejar el antes y después de la operación find('list')
+ *
+ * @param string $state Estado de la búsqueda, 'before' o 'after'
+ * @param array $query Opciones de la consulta
+ * @param array $results Resultado de la consulta
+ *
+ * @return array Opciones de la consulta si `$state` es igual a 'before' o el resultado
+ * de la consulta en caso contrario
+ */
+	protected function _findList($state, $query, $results = array()) {
+		if ($state === 'before') {
+			if (empty($query['order'])) {
+				$query['order'] = array('nombre' => 'asc');
+			}
+		}
+		return parent::_findList($state, $query, $results);
+	}
 }
