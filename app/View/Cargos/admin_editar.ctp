@@ -40,32 +40,6 @@ $this->Html->addCrumb('Editar');
 		'class' => 'combobox span5',
 		'label' => 'Docente'
 	));
-
-	echo $this->Form->input('grado_id', array(
-		'class' => 'span3'
-	));
-
-	echo $this->Form->input('tipo_id', array(
-		'class' => 'span2',
-		'label' => 'Tipo de cargo'
-	));
-
-	echo $this->Form->input('dedicacion', array(
-		'default' => 1,
-		'label' => 'Dedicación',
-		'maxlength' => 3,
-		'type' => 'text'
-	));
-
-	echo $this->Form->input('dedicacion_id', array(
-		'class' => 'span2',
-		'label' => 'Tipo de dedicación'
-	));
-
-	echo $this->Form->input('resolucion', array(
-		'label' => 'Resolución',
-		'type' => 'text'
-	));
 	?>
 </fieldset>
 <?php

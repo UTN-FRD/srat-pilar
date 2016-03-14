@@ -30,10 +30,7 @@ class CargosController extends AppController {
 	public $components = array(
 		'Search.Prg',
 		'Paginator' => array(
-			'fields' => array(
-				'id', 'asignatura', 'docente', 'dedicacion', 'resolucion',
-				'Tipo.nombre', 'Dedicacion.nombre', 'Grado.nombre'
-			),
+			'fields' => array('id', 'asignatura', 'docente'),
 			'limit' => 15,
 			'maxLimit' => 15,
 			'order' => array('Materia.nombre' => 'asc'),
@@ -67,14 +64,16 @@ class CargosController extends AppController {
 	public function admin_agregar() {
 		if ($this->request->is('post')) {
 			if ($this->Cargo->save($this->request->data)) {
-				$this->_notify('record_created');
+				$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+				$this->redirect($this->request->here);
 			} elseif (empty($this->Cargo->validationErrors)) {
-				$this->_notify('record_not_saved');
+				$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 			}
 		}
 
-		$this->__setFormData();
 		$this->set(array(
+			'asignaturas' => $this->Cargo->Asignatura->find('list'),
+			'usuarios' => $this->Cargo->Usuario->find('list'),
 			'title_for_layout' => 'Agregar - Cargos - Administrar',
 			'title_for_view' => 'Agregar cargo'
 		));
@@ -91,30 +90,26 @@ class CargosController extends AppController {
  */
 	public function admin_editar($id = null) {
 		$this->Cargo->id = $id;
-		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->Cargo->exists()) {
+		if (!$this->Cargo->exists()) {
 			throw new NotFoundException;
 		}
 
 		if ($this->request->is('put')) {
 			if ($this->Cargo->save($this->request->data)) {
-				$this->_notify('record_modified');
+				$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+				$this->redirect(array('action' => 'index'));
 			} elseif (empty($this->Cargo->validationErrors)) {
-				$this->_notify('record_not_saved');
+				$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 			}
 		}
 
 		if (!$this->request->data) {
-			$this->request->data = $this->Cargo->read(array(
-				'id', 'asignatura_id', 'usuario_id', 'tipo_id', 'dedicacion_id', 'grado_id', 'dedicacion', 'resolucion'
-			));
-
-			if (!empty($this->request->data['Cargo']['dedicacion'])) {
-				$this->request->data['Cargo']['dedicacion'] = round($this->request->data['Cargo']['dedicacion'], 1);
-			}
+			$this->request->data = $this->Cargo->read(array('id', 'asignatura_id', 'usuario_id'));
 		}
 
-		$this->__setFormData();
 		$this->set(array(
+			'asignaturas' => $this->Cargo->Asignatura->find('list'),
+			'usuarios' => $this->Cargo->Usuario->find('list'),
 			'title_for_layout' => 'Editar - Cargos - Administrar',
 			'title_for_view' => 'Editar cargo'
 		));
@@ -136,34 +131,15 @@ class CargosController extends AppController {
 		}
 
 		$this->Cargo->id = $id;
-		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->Cargo->exists()) {
+		if (!$this->Cargo->exists()) {
 			throw new NotFoundException;
 		}
 
-		$notify = 'record_not_deleted';
 		if ($this->Cargo->delete()) {
-			$notify = 'record_deleted';
+			$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+		} else {
+			$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 		}
-		$this->_notify($notify);
-	}
-
-/**
- * Método auxiliar utilizado por las acciones agregar y editar
- *
- * @return void
- */
-	private function __setFormData() {
-		$this->set(array(
-			'asignaturas' => $this->Cargo->Asignatura->find('list', array(
-				'order' => array('Materia.nombre' => 'asc'),
-				'recursive' => 0
-			)),
-			'usuarios' => $this->Cargo->Usuario->find('list', array(
-				'order' => array('Usuario.nombre' => 'asc')
-			)),
-			'tipos' => $this->Cargo->Tipo->find('list', array('order' => array('id' => 'asc'))),
-			'dedicaciones' => $this->Cargo->Dedicacion->find('list', array('order' => array('id' => 'asc'))),
-			'grados' => $this->Cargo->Grado->find('list', array('order' => array('id' => 'asc')))
-		));
+		$this->redirect(array('action' => 'index'));
 	}
 }
