@@ -19,7 +19,7 @@ $this->Html->addCrumb('Administrar');
 $this->Html->addCrumb('Materias', array('action' => 'index'));
 $this->Html->addCrumb('Agregar');
 ?>
-<?php echo $this->Form->create('AsignaturasMateria', array('class' => 'form-vertical')) ?>
+<?php echo $this->Form->create('Materia', array('class' => 'form-vertical')) ?>
 <ul>
 	<li>Los campos indicados con <span class="required">*</span>son obligatorios.</li>
 </ul>

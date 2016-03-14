@@ -99,7 +99,7 @@ $links = array(
 			array(
 				'text' => 'Materias',
 				'url' => array(
-					'controller' => 'asignaturas_materias',
+					'controller' => 'materias',
 					'action' => 'index',
 					'admin' => true,
 					'plugin' => false

@@ -16,11 +16,11 @@
 App::uses('AppController', 'Controller');
 
 /**
- * AsignaturasMaterias
+ * Materias
  *
  * @author Jorge Alberto Cricelli <jacricelli@gmail.com>
  */
-class AsignaturasMateriasController extends AppController {
+class MateriasController extends AppController {
 
 /**
  * Componentes
@@ -45,7 +45,7 @@ class AsignaturasMateriasController extends AppController {
 	public function admin_index() {
 		$this->Prg->commonProcess();
 		$this->Paginator->settings += array(
-			'conditions' => $this->AsignaturasMateria->parseCriteria($this->Prg->parsedParams())
+			'conditions' => $this->Materia->parseCriteria($this->Prg->parsedParams())
 		);
 
 		$this->set(array(
@@ -62,9 +62,9 @@ class AsignaturasMateriasController extends AppController {
  */
 	public function admin_agregar() {
 		if ($this->request->is('post')) {
-			if ($this->AsignaturasMateria->save($this->request->data)) {
+			if ($this->Materia->save($this->request->data)) {
 				$this->_notify('record_created');
-			} elseif (empty($this->AsignaturasMateria->validationErrors)) {
+			} elseif (empty($this->Materia->validationErrors)) {
 				$this->_notify('record_not_saved');
 			}
 		}
@@ -85,25 +85,25 @@ class AsignaturasMateriasController extends AppController {
  * @throws NotFoundException Si el registro no existe
  */
 	public function admin_editar($id = null) {
-		$this->AsignaturasMateria->id = $id;
-		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->AsignaturasMateria->exists()) {
+		$this->Materia->id = $id;
+		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->Materia->exists()) {
 			throw new NotFoundException;
 		}
 
 		if ($this->request->is('put')) {
-			if ($this->AsignaturasMateria->save($this->request->data)) {
+			if ($this->Materia->save($this->request->data)) {
 				$this->_notify('record_modified');
-			} elseif (empty($this->AsignaturasMateria->validationErrors)) {
+			} elseif (empty($this->Materia->validationErrors)) {
 				$this->_notify('record_not_saved');
 			}
 		}
 
 		if (!$this->request->data) {
-			$this->request->data = $this->AsignaturasMateria->read(array('id', 'nombre', 'obs'));
+			$this->request->data = $this->Materia->read(array('id', 'nombre', 'obs'));
 		}
 
 		$this->set(array(
-			'associated' => $this->AsignaturasMateria->hasAssociations(),
+			'associated' => $this->Materia->hasAssociations(),
 			'title_for_layout' => 'Editar - Materias - Administrar',
 			'title_for_view' => 'Editar materia'
 		));
@@ -124,16 +124,16 @@ class AsignaturasMateriasController extends AppController {
 			throw new MethodNotAllowedException;
 		}
 
-		$this->AsignaturasMateria->id = $id;
-		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->AsignaturasMateria->exists()) {
+		$this->Materia->id = $id;
+		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->Materia->exists()) {
 			throw new NotFoundException;
 		}
 
 		$notify = 'record_not_deleted';
-		if ($this->AsignaturasMateria->hasAssociations()) {
+		if ($this->Materia->hasAssociations()) {
 			$notify = 'record_delete_associated';
 		} else {
-			if ($this->AsignaturasMateria->delete()) {
+			if ($this->Materia->delete()) {
 				$notify = 'record_deleted';
 			}
 		}
