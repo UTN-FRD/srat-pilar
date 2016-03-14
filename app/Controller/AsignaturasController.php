@@ -64,15 +64,16 @@ class AsignaturasController extends AppController {
 	public function admin_agregar() {
 		if ($this->request->is('post')) {
 			if ($this->Asignatura->save($this->request->data)) {
-				$this->_notify('record_created');
+				$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+				$this->redirect($this->request->here);
 			} elseif (empty($this->Asignatura->validationErrors)) {
-				$this->_notify('record_not_saved');
+				$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 			}
 		}
 
 		$this->set(array(
-			'carreras' => $this->Asignatura->Carrera->find('list', array('order' => array('nombre' => 'asc'))),
-			'materias' => $this->Asignatura->Materia->find('list', array('order' => array('nombre' => 'asc'))),
+			'carreras' => $this->Asignatura->Carrera->find('list'),
+			'materias' => $this->Asignatura->Materia->find('list'),
 			'title_for_layout' => 'Agregar - Asignaturas - Administrar',
 			'title_for_view' => 'Agregar asignatura'
 		));
@@ -89,15 +90,16 @@ class AsignaturasController extends AppController {
  */
 	public function admin_editar($id = null) {
 		$this->Asignatura->id = $id;
-		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->Asignatura->exists()) {
+		if (!$this->Asignatura->exists()) {
 			throw new NotFoundException;
 		}
 
 		if ($this->request->is('put')) {
 			if ($this->Asignatura->save($this->request->data)) {
-				$this->_notify('record_modified');
+				$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+				$this->redirect(array('action' => 'index'));
 			} elseif (empty($this->Asignatura->validationErrors)) {
-				$this->_notify('record_not_saved');
+				$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 			}
 		}
 
@@ -107,8 +109,8 @@ class AsignaturasController extends AppController {
 
 		$this->set(array(
 			'associated' => $this->Asignatura->hasAssociations(),
-			'carreras' => $this->Asignatura->Carrera->find('list', array('order' => array('nombre' => 'asc'))),
-			'materias' => $this->Asignatura->Materia->find('list', array('order' => array('nombre' => 'asc'))),
+			'carreras' => $this->Asignatura->Carrera->find('list'),
+			'materias' => $this->Asignatura->Materia->find('list'),
 			'title_for_layout' => 'Editar - Asignaturas - Administrar',
 			'title_for_view' => 'Editar asignatura'
 		));
@@ -130,18 +132,19 @@ class AsignaturasController extends AppController {
 		}
 
 		$this->Asignatura->id = $id;
-		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->Asignatura->exists()) {
+		if (!$this->Asignatura->exists()) {
 			throw new NotFoundException;
 		}
 
-		$notify = 'record_not_deleted';
 		if ($this->Asignatura->hasAssociations()) {
-			$notify = 'record_delete_associated';
+			$this->Flash->warning('La operación solicitada no se ha completado debido a que el registro se encuentra asociado.');
 		} else {
 			if ($this->Asignatura->delete()) {
-				$notify = 'record_deleted';
+				$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+			} else {
+				$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 			}
 		}
-		$this->_notify($notify);
+		$this->redirect(array('action' => 'index'));
 	}
 }

@@ -131,9 +131,10 @@ class UsuariosController extends AppController {
 		if ($this->request->is('put')) {
 			$this->Usuario->whitelist = array('apellido', 'nombre', 'old_password', 'password');
 			if ($this->Usuario->save($this->request->data)) {
-				$this->_notify('record_modified', array('redirect' => true));
+				$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+				$this->redirect($this->request->here);
 			} elseif (empty($this->Usuario->validationErrors)) {
-				$this->_notify('record_not_saved');
+				$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 			}
 		}
 
@@ -161,9 +162,10 @@ class UsuariosController extends AppController {
 		if ($this->request->is('put')) {
 			$this->Usuario->whitelist = array('password', 'reset');
 			if ($this->Usuario->save($this->request->data)) {
-				$this->_notify('record_modified', array('redirect' => array('action' => 'dashboard')));
+				$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+				$this->redirect(array('action' => 'dashboard'));
 			} elseif (empty($this->Usuario->validationErrors)) {
-				$this->_notify('record_not_saved');
+				$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 			}
 		}
 
@@ -208,9 +210,10 @@ class UsuariosController extends AppController {
 		if ($this->request->is('post')) {
 			if (empty($this->request->data['refresh'])) {
 				if ($this->Usuario->save($this->request->data)) {
-					$this->_notify('record_created');
+					$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+					$this->redirect($this->request->here);
 				} elseif (empty($this->Usuario->validationErrors)) {
-					$this->_notify('record_not_saved');
+					$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 				}
 			} else {
 				unset($this->request->data['Usuario']['password']);
@@ -234,7 +237,7 @@ class UsuariosController extends AppController {
  */
 	public function admin_editar($id = null) {
 		$this->Usuario->id = $id;
-		if (!filter_var($id, FILTER_VALIDATE_INT) || !$this->Usuario->exists()) {
+		if (!$this->Usuario->exists()) {
 			throw new NotFoundException;
 		}
 
@@ -249,9 +252,10 @@ class UsuariosController extends AppController {
 							);
 						}
 					}
-					$this->_notify('record_modified');
+					$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+					$this->redirect(array('action' => 'index'));
 				} elseif (empty($this->Usuario->validationErrors)) {
-					$this->_notify('record_not_saved');
+					$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 				}
 			} else {
 				unset($this->request->data['Usuario']['password']);
@@ -286,19 +290,20 @@ class UsuariosController extends AppController {
 		}
 
 		$this->Usuario->id = $id;
-		if ($id == 1 || !filter_var($id, FILTER_VALIDATE_INT) || !$this->Usuario->exists()) {
+		if ((int)$id == 1 || !$this->Usuario->exists()) {
 			throw new NotFoundException;
 		}
 
-		$notify = 'record_not_deleted';
 		if ($this->Usuario->hasAssociations()) {
-			$notify = 'record_delete_associated';
+			$this->Flash->warning('La operación solicitada no se ha completado debido a que el registro se encuentra asociado.');
 		} else {
 			if ($this->Usuario->delete()) {
-				$notify = 'record_deleted';
+				$this->Flash->success('La operación solicitada se ha completado exitosamente.');
+			} else {
+				$this->Flash->warning('La operación solicitada no se ha completado debido a un error inesperado.');
 			}
 		}
-		$this->_notify($notify);
+		$this->redirect(array('action' => 'index'));
 	}
 
 /**

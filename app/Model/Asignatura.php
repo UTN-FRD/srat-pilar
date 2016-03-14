@@ -118,4 +118,26 @@ class Asignatura extends AppModel {
 	public $virtualFields = array(
 		'asignatura' => 'CONCAT(Carrera.nombre, ": ", Materia.nombre)'
 	);
+
+/**
+ * Método auxiliar para manejar el antes y después de la operación find('list')
+ *
+ * @param string $state Estado de la búsqueda, 'before' o 'after'
+ * @param array $query Opciones de la consulta
+ * @param array $results Resultado de la consulta
+ *
+ * @return array Opciones de la consulta si `$state` es igual a 'before' o el resultado
+ * de la consulta en caso contrario
+ */
+	protected function _findList($state, $query, $results = array()) {
+		if ($state === 'before') {
+			if ($this->displayField === 'asignatura') {
+				if (empty($query['order'])) {
+					$query['order'] = array('Materia.nombre' => 'asc');
+				}
+				$query['recursive'] = 0;
+			}
+		}
+		return parent::_findList($state, $query, $results);
+	}
 }
