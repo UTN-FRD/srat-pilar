@@ -28,7 +28,6 @@ class AppController extends Controller {
  * @var array
  */
 	public $components = array(
-		'AbsenceUpdater',
 		'Security' => array('blackHoleCallback' => 'blackHole'),
 		'Session',
 		'Flash',
@@ -127,10 +126,6 @@ class AppController extends Controller {
 					'controller' => 'usuarios', 'action' => 'restablecer', 'admin' => false, 'plugin' => false
 				));
 			}
-		}
-
-		if ($this->Auth->user('admin')) {
-			$this->set('totalAbsences', ClassRegistry::init('Inasistencia')->getYesterdaysTotal());
 		}
 	}
 

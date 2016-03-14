@@ -118,17 +118,6 @@ $links = array(
 	),
 	array(
 		'condition' => $isAdmin,
-		'options' => array('escape' => false),
-		'text' => 'Inasistencias <span class="badge badge-info">' . (isset($totalAbsences) ? $totalAbsences : 0) . '</span>',
-		'url' => array(
-			'controller' => 'inasistencias',
-			'action' => 'index',
-			'admin' => true,
-			'plugin' => false
-		)
-	),
-	array(
-		'condition' => $isAdmin,
 		'text' => 'Reportes',
 		'dropdown' => array(
 			array(
