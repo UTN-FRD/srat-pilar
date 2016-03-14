@@ -37,26 +37,8 @@ class Asignatura extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Area' => array(
-			'className' => 'AsignaturasArea',
-			'foreignKey' => 'area_id'
-		),
-		'Carrera' => array(
-			'className' => 'AsignaturasCarrera',
-			'foreignKey' => 'carrera_id'
-		),
-		'Materia' => array(
-			'className' => 'AsignaturasMateria',
-			'foreignKey' => 'materia_id'
-		),
-		'Nivel' => array(
-			'className' => 'AsignaturasNivel',
-			'foreignKey' => 'nivel_id'
-		),
-		'Tipo' => array(
-			'className' => 'AsignaturasTipo',
-			'foreignKey' => 'tipo_id'
-		)
+		'Carrera',
+		'Materia'
 	);
 
 /**
@@ -125,45 +107,6 @@ class Asignatura extends AppModel {
 			'isUnique' => array(
 				'rule' => array('validateUnique', array('carrera_id')),
 				'message' => 'La materia seleccionada ya se encuentra asociada a la carrera seleccionada'
-			)
-		),
-		'area_id' => array(
-			'notBlank' => array(
-				'rule' => 'notBlank',
-				'required' => true,
-				'allowEmpty' => false,
-				'last' => true,
-				'message' => 'Este campo no puede estar vacío'
-			),
-			'exists' => array(
-				'rule' => array('validateExists', 'Area'),
-				'message' => 'El valor seleccionado no existe'
-			)
-		),
-		'nivel_id' => array(
-			'notBlank' => array(
-				'rule' => 'notBlank',
-				'required' => true,
-				'allowEmpty' => false,
-				'last' => true,
-				'message' => 'Este campo no puede estar vacío'
-			),
-			'exists' => array(
-				'rule' => array('validateExists', 'Nivel'),
-				'message' => 'El valor seleccionado no existe'
-			)
-		),
-		'tipo_id' => array(
-			'notBlank' => array(
-				'rule' => 'notBlank',
-				'required' => true,
-				'allowEmpty' => false,
-				'last' => true,
-				'message' => 'Este campo no puede estar vacío'
-			),
-			'exists' => array(
-				'rule' => array('validateExists', 'Tipo'),
-				'message' => 'El valor seleccionado no existe'
 			)
 		)
 	);

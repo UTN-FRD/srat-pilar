@@ -13,11 +13,6 @@
  */
 
 /**
- * CSS
- */
-$this->Html->css('asignaturas', array('inline' => false));
-
-/**
  * Breadcrumbs
  */
 $this->Html->addCrumb('Administrar');
@@ -40,10 +35,8 @@ $this->set('tasks', array(
  */
 $headers = array(
 	'#',
+	$this->Paginator->sort('Carrera.nombre', 'Carrera'),
 	$this->Paginator->sort('Materia.nombre', 'Nombre'),
-	$this->Paginator->sort('Area.nombre', 'Área'),
-	$this->Paginator->sort('Nivel.nombre', 'Nivel'),
-	$this->Paginator->sort('Tipo.nombre', 'Típo'),
 	'Tareas'
 );
 
@@ -64,10 +57,8 @@ if (!empty($rows)):
 
 		$rows[$rid] = array(
 			$start++,
-			h($row['Asignatura']['asignatura']),
-			h($row['Area']['nombre']),
-			h($row['Nivel']['nombre']),
-			h($row['Tipo']['nombre']),
+			h($row['Carrera']['nombre']),
+			h($row['Materia']['nombre']),
 			implode(' ', $tasks)
 		);
 	endforeach;

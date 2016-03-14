@@ -41,21 +41,6 @@ $this->Html->addCrumb('Editar');
 		'label' => 'Materia',
 		'locked' => $associated
 	));
-
-	echo $this->Form->input('area_id', array(
-		'class' => 'combobox span5',
-		'label' => 'Área'
-	));
-
-	echo $this->Form->input('nivel_id', array(
-		'class' => 'span2',
-		'label' => 'Nivel'
-	));
-
-	echo $this->Form->input('tipo_id', array(
-		'class' => 'span2',
-		'label' => 'Tipo'
-	));
 	?>
 </fieldset>
 <?php

@@ -30,7 +30,7 @@ class AsignaturasController extends AppController {
 	public $components = array(
 		'Search.Prg',
 		'Paginator' => array(
-			'fields' => array('id', 'asignatura', 'Area.nombre', 'Nivel.nombre', 'Tipo.nombre'),
+			'fields' => array('id', 'Carrera.nombre', 'Materia.nombre'),
 			'limit' => 15,
 			'maxLimit' => 15,
 			'order' => array('Materia.nombre' => 'asc'),
@@ -71,11 +71,8 @@ class AsignaturasController extends AppController {
 		}
 
 		$this->set(array(
-			'areas' => $this->Asignatura->Area->find('list', array('order' => array('nombre' => 'asc'))),
 			'carreras' => $this->Asignatura->Carrera->find('list', array('order' => array('nombre' => 'asc'))),
 			'materias' => $this->Asignatura->Materia->find('list', array('order' => array('nombre' => 'asc'))),
-			'niveles' => $this->Asignatura->Nivel->find('list', array('order' => array('id' => 'asc'))),
-			'tipos' => $this->Asignatura->Tipo->find('list', array('order' => array('nombre' => 'asc'))),
 			'title_for_layout' => 'Agregar - Asignaturas - Administrar',
 			'title_for_view' => 'Agregar asignatura'
 		));
@@ -105,18 +102,13 @@ class AsignaturasController extends AppController {
 		}
 
 		if (!$this->request->data) {
-			$this->request->data = $this->Asignatura->read(
-				array('id', 'area_id', 'carrera_id', 'materia_id', 'nivel_id', 'tipo_id')
-			);
+			$this->request->data = $this->Asignatura->read(array('id', 'carrera_id', 'materia_id'));
 		}
 
 		$this->set(array(
 			'associated' => $this->Asignatura->hasAssociations(),
-			'areas' => $this->Asignatura->Area->find('list', array('order' => array('nombre' => 'asc'))),
 			'carreras' => $this->Asignatura->Carrera->find('list', array('order' => array('nombre' => 'asc'))),
 			'materias' => $this->Asignatura->Materia->find('list', array('order' => array('nombre' => 'asc'))),
-			'niveles' => $this->Asignatura->Nivel->find('list', array('order' => array('id' => 'asc'))),
-			'tipos' => $this->Asignatura->Tipo->find('list', array('order' => array('nombre' => 'asc'))),
 			'title_for_layout' => 'Editar - Asignaturas - Administrar',
 			'title_for_view' => 'Editar asignatura'
 		));
