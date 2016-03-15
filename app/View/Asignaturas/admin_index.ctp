@@ -36,7 +36,7 @@ $this->set('tasks', array(
 $headers = array(
 	'#',
 	$this->Paginator->sort('Carrera.nombre', 'Carrera'),
-	$this->Paginator->sort('Materia.nombre', 'Nombre'),
+	$this->Paginator->sort('Materia.nombre', 'Materia'),
 	'Tareas'
 );
 
