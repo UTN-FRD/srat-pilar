@@ -11,10 +11,10 @@
  * @author Jorge Alberto Cricelli <jacricelli@gmail.com>
  */
 
-$(function() {
-	$('table').each(function() {
-		$('th a.asc, th a.desc', this)
+$( function() {
+	$( "table" ).each( function() {
+		$( "th a.asc, th a.desc", this )
 		.parent()
-		.append('<i>&nbsp;</i>');
-	});
-});
+		.append( "<i>&nbsp;</i>" );
+	} );
+} );

@@ -11,8 +11,8 @@
  * @author Jorge Alberto Cricelli <jacricelli@gmail.com>
  */
 
-$(function() {
-	$('#UsuarioReset:not(:disabled)').on('click', function() {
-		$('button.refresh').click();
-	});
-});
+$( function() {
+	$( "#UsuarioReset:not(:disabled)" ).on( "click", function() {
+		$( "button.refresh" ).click();
+	} );
+} );
