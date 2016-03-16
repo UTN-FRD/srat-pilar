@@ -30,7 +30,7 @@ class CargosController extends AppController {
 	public $components = array(
 		'Search.Prg',
 		'Paginator' => array(
-			'fields' => array('id', 'asignatura', 'docente'),
+			'fields' => array('id', 'Carrera.nombre', 'Materia.nombre', 'docente'),
 			'limit' => 15,
 			'maxLimit' => 15,
 			'order' => array('Materia.nombre' => 'asc'),

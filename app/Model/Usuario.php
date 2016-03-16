@@ -186,8 +186,7 @@ class Usuario extends AppModel {
  * @var array
  */
 	public $virtualFields = array(
-		'docente' => 'CONCAT("(", Usuario.legajo, ")", " ", Usuario.apellido, ", ", Usuario.nombre)',
-		'nombre_completo' => 'CONCAT(Usuario.apellido, ", ", Usuario.nombre)'
+		'nombre_completo' => 'CONCAT(Usuario.nombre, " ", Usuario.apellido)'
 	);
 
 /**
@@ -282,7 +281,7 @@ class Usuario extends AppModel {
 	protected function _findList($state, $query, $results = array()) {
 		if ($state === 'before') {
 			if (empty($query['order'])) {
-				$query['order'] = array('apellido' => 'asc');
+				$query['order'] = array('nombre' => 'asc');
 			}
 		}
 		return parent::_findList($state, $query, $results);

@@ -65,7 +65,7 @@ class Cargo extends AppModel {
 	public $filterArgs = array(
 		'buscar' => array(
 			'field' => array(
-				'Carrera.nombre', 'Materia.nombre', 'Usuario.apellido', 'Usuario.nombre',
+				'Carrera.nombre', 'Materia.nombre', 'Usuario.nombre', 'Usuario.apellido',
 				'CONCAT(Usuario.nombre, " ", Usuario.apellido)'
 			),
 			'type' => 'like'
@@ -117,7 +117,6 @@ class Cargo extends AppModel {
  * @var array
  */
 	public $virtualFields = array(
-		'asignatura' => 'CONCAT(Carrera.nombre, ": ", Materia.nombre)',
-		'docente' => 'CONCAT(Usuario.apellido, ", ", Usuario.nombre)'
+		'docente' => 'CONCAT(Usuario.nombre, " ", Usuario.apellido)'
 	);
 }

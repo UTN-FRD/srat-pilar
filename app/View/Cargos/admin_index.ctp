@@ -35,7 +35,8 @@ $this->set('tasks', array(
  */
 $headers = array(
 	'#',
-	$this->Paginator->sort('Materia.nombre', 'Asignatura'),
+	$this->Paginator->sort('Carrera.nombre', 'Carrera'),
+	$this->Paginator->sort('Materia.nombre', 'Materia'),
 	$this->Paginator->sort('Usuario.nombre', 'Docente'),
 	'Tareas'
 );
@@ -57,7 +58,8 @@ if (!empty($rows)):
 
 		$rows[$rid] = array(
 			$start++,
-			h($row['Cargo']['asignatura']),
+			h($row['Carrera']['nombre']),
+			h($row['Materia']['nombre']),
 			h($row['Cargo']['docente']),
 			implode(' ', $tasks)
 		);
