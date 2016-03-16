@@ -1,0 +1,23 @@
+/*!
+ * Registros
+ *
+ * Sistema de Registro de Asistencia y Temas
+ *
+ * (c) Universidad Tecnológica Nacional - Facultad Regional Delta
+ *
+ * Este archivo está sujeto a los términos y condiciones descritos
+ * en el archivo LICENCIA.txt que acompaña a este software.
+ *
+ * @author Jorge Alberto Cricelli <jacricelli@gmail.com>
+ */
+
+table.registros thead tr th:nth-child(5),
+table.registros tbody tr td:nth-child(5),
+table.registros thead tr th:nth-child(6),
+table.registros tbody tr td:nth-child(6),
+table.registros thead tr th:nth-child(7),
+table.registros tbody tr td:nth-child(7) {
+	width: 75px;
+
+	text-align: right;
+}
