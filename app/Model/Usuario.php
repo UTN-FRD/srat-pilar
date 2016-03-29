@@ -303,4 +303,71 @@ class Usuario extends AppModel {
 		}
 		return false;
 	}
+
+/**
+ * Obtiene todos los cargos asociados a un usuario
+ *
+ * @param mixed $id Identificador
+ *
+ * @return array Cargos
+ */
+	public function getCargos($id = null) {
+		$out = array();
+
+		if ($id) {
+			if (is_array($id)) {
+				$id = $id[0];
+			}
+			$this->id = $id;
+		}
+		$id = $this->id;
+
+		if ($id && $this->exists()) {
+			$records = array();
+			$this->Registro->virtualFields = array();
+			$rows = $this->Registro->find('all', array(
+				'conditions' => array(
+					'Registro.fecha' => date('Y-m-d'),
+					'Registro.usuario_id' => $id
+				)
+			));
+			foreach ($rows as $row) {
+				$records[$row['Registro']['asignatura_id']] = current($row);
+			}
+
+			$this->Cargo->virtualFields = array();
+			$rows = $this->Cargo->find('all', array(
+				'conditions' => array(
+					'Cargo.usuario_id' => $id
+				),
+				'fields' => array(
+					'Asignatura.*',
+					'Carrera.nombre',
+					'Materia.nombre'
+				),
+				'recursive' => 0
+			));
+			foreach ($rows as $rid => $row) {
+				$asignaturaId = $row['Asignatura']['id'];
+				if (!isset($records[$asignaturaId])) {
+					$out['Registro'][$rid] = array(
+						'asignatura_id' => $asignaturaId,
+						'entrada' => null,
+						'fecha' => date('Y-m-d'),
+						'obs' => null,
+						'salida' => null,
+						'usuario_id' => $id
+					);
+				} else {
+					$out['Registro'][$rid] = $records[$asignaturaId];
+				}
+				$out['Registro'][$rid] += array(
+					'asignatura' => sprintf('%s: %s', $row['Carrera']['nombre'], $row['Materia']['nombre']),
+					'check' => (isset($records[$asignaturaId]) && empty($out['Registro'][$rid]['salida']))
+				);
+			}
+		}
+
+		return $out;
+	}
 }

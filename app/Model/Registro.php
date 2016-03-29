@@ -70,6 +70,79 @@ class Registro extends AppModel {
 	);
 
 /**
+ * Reglas de validación
+ *
+ * @var array
+ */
+	public $validate = array(
+		'asignatura_id' => array(
+			'notBlank' => array(
+				'rule' => 'notBlank',
+				'required' => true,
+				'allowEmpty' => false,
+				'last' => true,
+				'message' => 'Este campo no puede estar vacío'
+			),
+			'exists' => array(
+				'rule' => array('validateExists', 'Asignatura'),
+				'message' => 'El valor seleccionado no existe'
+			)
+		),
+		'usuario_id' => array(
+			'notBlank' => array(
+				'rule' => 'notBlank',
+				'required' => true,
+				'allowEmpty' => false,
+				'last' => true,
+				'message' => 'Este campo no puede estar vacío'
+			),
+			'exists' => array(
+				'rule' => array('validateExists', 'Usuario'),
+				'message' => 'El valor seleccionado no existe'
+			)
+		),
+		'entrada' => array(
+			'notBlank' => array(
+				'rule' => 'notBlank',
+				'required' => true,
+				'allowEmpty' => false,
+				'last' => true,
+				'message' => 'Este campo no puede estar vacío'
+			),
+			'validTime' => array(
+				'rule' => 'time',
+				'message' => 'El valor ingresado no es válido'
+			)
+		),
+		'salida' => array(
+			'notBlank' => array(
+				'rule' => 'notBlank',
+				'required' => true,
+				'allowEmpty' => true,
+				'last' => true,
+				'message' => 'Este campo no puede estar vacío'
+			),
+			'validTime' => array(
+				'rule' => 'time',
+				'message' => 'El valor ingresado no es válido'
+			)
+		),
+		'obs' => array(
+			'notBlank' => array(
+				'rule' => 'notBlank',
+				'required' => true,
+				'allowEmpty' => false,
+				'last' => true,
+				'message' => 'Este campo no puede estar vacío'
+			),
+			'maxLength' => array(
+				'rule' => array('maxLength', 65535),
+				'message' => 'El valor ingresado es demasiado grande'
+			)
+		)
+	);
+
+/**
  * Campos virtuales
  *
  * @var array
@@ -77,6 +150,46 @@ class Registro extends AppModel {
 	public $virtualFields = array(
 		'docente' => 'CONCAT(Usuario.nombre, " ", Usuario.apellido)'
 	);
+
+/**
+ * beforeValidate
+ *
+ * @param array $options Opciones
+ *
+ * @return bool `true` para continuar la operación de validación o `false` para cancelarla
+ */
+	public function beforeValidate($options = array()) {
+		if (empty($this->data[$this->alias]['check'])) {
+			$this->data = $this->validate = array();
+		} else {
+			if (!isset($this->data[$this->alias]['id'])) {
+				if (!empty($this->data[$this->alias]['obs'])) {
+					$this->data[$this->alias]['entrada'] = date('H:i:s');
+				} else {
+					$this->data = $this->validate = array();
+				}
+			}
+		}
+
+		return true;
+	}
+
+/**
+ * beforeSave
+ *
+ * @param array $options Opciones
+ *
+ * @return bool `true` para continuar la operación de guardado o `false` para cancelarla
+ */
+	public function beforeSave($options = array()) {
+		if (!isset($this->data[$this->alias]['id'])) {
+			$this->data[$this->alias]['salida'] = null;
+		} else {
+			$this->data[$this->alias]['salida'] = date('H:i:s');
+		}
+
+		return true;
+	}
 
 /**
  * Genera condiciones de búsqueda
