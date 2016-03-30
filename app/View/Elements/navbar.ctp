@@ -101,6 +101,16 @@ $links = array(
 	),
 	array(
 		'condition' => $isAdmin,
+		'text' => 'Reportes',
+		'url' => array(
+			'controller' => 'reportes',
+			'action' => 'index',
+			'admin' => true,
+			'plugin' => false
+		)
+	),
+	array(
+		'condition' => $isAdmin,
 		'divider' => true
 	),
 	array(
