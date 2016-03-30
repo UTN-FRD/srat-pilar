@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 5.6.27, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.47, for debian-linux-gnu (x86_64)
 -- ------------------------------------------------------
--- Server version	5.6.27-0ubuntu0.14.04.1
+-- Server version	5.5.47-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,20 +23,12 @@ CREATE TABLE `asignaturas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `carrera_id` tinyint(3) unsigned NOT NULL,
   `materia_id` smallint(5) unsigned NOT NULL,
-  `area_id` tinyint(3) unsigned NOT NULL,
-  `nivel_id` tinyint(3) unsigned NOT NULL,
-  `tipo_id` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_ASIGNATURA` (`carrera_id`,`materia_id`),
-  KEY `IK_AREA` (`area_id`),
+  KEY `IK_CARRERA` (`carrera_id`),
   KEY `IK_MATERIA` (`materia_id`),
-  KEY `IK_NIVEL` (`nivel_id`),
-  KEY `IK_TIPO` (`tipo_id`),
-  CONSTRAINT `FK_ASIGNATURAS_AREA` FOREIGN KEY (`area_id`) REFERENCES `asignaturas_areas` (`id`),
-  CONSTRAINT `FK_ASIGNATURAS_CARRERA` FOREIGN KEY (`carrera_id`) REFERENCES `asignaturas_carreras` (`id`),
-  CONSTRAINT `FK_ASIGNATURAS_MATERIA` FOREIGN KEY (`materia_id`) REFERENCES `asignaturas_materias` (`id`),
-  CONSTRAINT `FK_ASIGNATURAS_NIVEL` FOREIGN KEY (`nivel_id`) REFERENCES `asignaturas_niveles` (`id`),
-  CONSTRAINT `FK_ASIGNATURAS_TIPO` FOREIGN KEY (`tipo_id`) REFERENCES `asignaturas_tipos` (`id`)
+  CONSTRAINT `FK_ASIGNATURAS_CARRERA` FOREIGN KEY (`carrera_id`) REFERENCES `carreras` (`id`),
+  CONSTRAINT `FK_ASIGNATURAS_MATERIA` FOREIGN KEY (`materia_id`) REFERENCES `materias` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,128 +42,6 @@ LOCK TABLES `asignaturas` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `asignaturas_areas`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `asignaturas_areas` (
-  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) NOT NULL,
-  `obs` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_NOMBRE` (`nombre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `asignaturas_areas`
---
-
-LOCK TABLES `asignaturas_areas` WRITE;
-/*!40000 ALTER TABLE `asignaturas_areas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `asignaturas_areas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `asignaturas_carreras`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `asignaturas_carreras` (
-  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) NOT NULL,
-  `obs` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_NOMBRE` (`nombre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `asignaturas_carreras`
---
-
-LOCK TABLES `asignaturas_carreras` WRITE;
-/*!40000 ALTER TABLE `asignaturas_carreras` DISABLE KEYS */;
-/*!40000 ALTER TABLE `asignaturas_carreras` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `asignaturas_materias`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `asignaturas_materias` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) NOT NULL,
-  `obs` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_NOMBRE` (`nombre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `asignaturas_materias`
---
-
-LOCK TABLES `asignaturas_materias` WRITE;
-/*!40000 ALTER TABLE `asignaturas_materias` DISABLE KEYS */;
-/*!40000 ALTER TABLE `asignaturas_materias` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `asignaturas_niveles`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `asignaturas_niveles` (
-  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) NOT NULL,
-  `obs` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_NOMBRE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `asignaturas_niveles`
---
-
-LOCK TABLES `asignaturas_niveles` WRITE;
-/*!40000 ALTER TABLE `asignaturas_niveles` DISABLE KEYS */;
-INSERT INTO `asignaturas_niveles` VALUES (1,'Primero',NULL),(2,'Segundo',NULL),(3,'Tercero',NULL),(4,'Cuarto',NULL),(5,'Quinto',NULL),(6,'General',NULL);
-/*!40000 ALTER TABLE `asignaturas_niveles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `asignaturas_tipos`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `asignaturas_tipos` (
-  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) NOT NULL,
-  `obs` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_NOMBRE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `asignaturas_tipos`
---
-
-LOCK TABLES `asignaturas_tipos` WRITE;
-/*!40000 ALTER TABLE `asignaturas_tipos` DISABLE KEYS */;
-INSERT INTO `asignaturas_tipos` VALUES (1,'Curricular',NULL),(2,'Integradora',NULL),(3,'Electiva',NULL);
-/*!40000 ALTER TABLE `asignaturas_tipos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `cargos`
 --
 
@@ -181,24 +51,12 @@ CREATE TABLE `cargos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `asignatura_id` int(10) unsigned NOT NULL,
   `usuario_id` int(10) unsigned NOT NULL,
-  `tipo_id` tinyint(3) unsigned NOT NULL,
-  `grado_id` tinyint(3) unsigned NOT NULL,
-  `dedicacion_id` tinyint(3) unsigned NOT NULL,
-  `dedicacion` decimal(2,1) unsigned NOT NULL,
-  `resolucion` smallint(5) unsigned DEFAULT NULL,
-  `created` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_CARGO` (`asignatura_id`,`usuario_id`),
   KEY `IK_ASIGNATURA` (`asignatura_id`),
   KEY `IK_USUARIO` (`usuario_id`),
-  KEY `IK_TIPO` (`tipo_id`),
-  KEY `IK_GRADO` (`grado_id`),
-  KEY `IK_DEDICACION` (`dedicacion_id`),
-  CONSTRAINT `FK_CARGOS_ASIGNATURA` FOREIGN KEY (`asignatura_id`) REFERENCES `asignaturas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_CARGOS_DEDICACION` FOREIGN KEY (`dedicacion_id`) REFERENCES `cargos_dedicaciones` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_CARGOS_GRADO` FOREIGN KEY (`grado_id`) REFERENCES `cargos_grados` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_CARGOS_TIPO` FOREIGN KEY (`tipo_id`) REFERENCES `cargos_tipos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_CARGOS_USUARIO` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_CARGOS_ASIGNATURA` FOREIGN KEY (`asignatura_id`) REFERENCES `asignaturas` (`id`),
+  CONSTRAINT `FK_CARGOS_USUARIO` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -212,130 +70,51 @@ LOCK TABLES `cargos` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `cargos_dedicaciones`
+-- Table structure for table `carreras`
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cargos_dedicaciones` (
+CREATE TABLE `carreras` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   `obs` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_NOMBRE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cargos_dedicaciones`
---
-
-LOCK TABLES `cargos_dedicaciones` WRITE;
-/*!40000 ALTER TABLE `cargos_dedicaciones` DISABLE KEYS */;
-INSERT INTO `cargos_dedicaciones` VALUES (1,'Simple',NULL),(2,'Semiexclusiva',NULL),(3,'Exclusiva',NULL);
-/*!40000 ALTER TABLE `cargos_dedicaciones` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cargos_grados`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cargos_grados` (
-  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) NOT NULL,
-  `obs` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_NOMBRE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cargos_grados`
---
-
-LOCK TABLES `cargos_grados` WRITE;
-/*!40000 ALTER TABLE `cargos_grados` DISABLE KEYS */;
-INSERT INTO `cargos_grados` VALUES (1,'Profesor Titular',NULL),(2,'Profesor Asociado',NULL),(3,'Profesor Adjunto',NULL),(4,'Jefe de Trabajos Prácticos',NULL),(5,'Ayudante Primera',NULL),(6,'Ayudante Segunda',NULL);
-/*!40000 ALTER TABLE `cargos_grados` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cargos_tipos`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cargos_tipos` (
-  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) NOT NULL,
-  `obs` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_NOMBRE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cargos_tipos`
---
-
-LOCK TABLES `cargos_tipos` WRITE;
-/*!40000 ALTER TABLE `cargos_tipos` DISABLE KEYS */;
-INSERT INTO `cargos_tipos` VALUES (1,'Ordinario',NULL),(2,'Interino',NULL);
-/*!40000 ALTER TABLE `cargos_tipos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `horarios`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `horarios` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `asignatura_id` int(10) unsigned NOT NULL,
-  `dia` tinyint(3) unsigned NOT NULL,
-  `entrada` time NOT NULL,
-  `salida` time NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_HORARIO` (`asignatura_id`,`dia`),
-  CONSTRAINT `FK_HORARIOS_ASIGNATURA` FOREIGN KEY (`asignatura_id`) REFERENCES `asignaturas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `horarios`
+-- Dumping data for table `carreras`
 --
 
-LOCK TABLES `horarios` WRITE;
-/*!40000 ALTER TABLE `horarios` DISABLE KEYS */;
-/*!40000 ALTER TABLE `horarios` ENABLE KEYS */;
+LOCK TABLES `carreras` WRITE;
+/*!40000 ALTER TABLE `carreras` DISABLE KEYS */;
+/*!40000 ALTER TABLE `carreras` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `periodos`
+-- Table structure for table `materias`
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `periodos` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `desde` date NOT NULL,
-  `hasta` date NOT NULL,
-  `obs` varchar(255) NOT NULL,
+CREATE TABLE `materias` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  `obs` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_PERIODO` (`desde`,`hasta`)
+  UNIQUE KEY `UK_NOMBRE` (`nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `periodos`
+-- Dumping data for table `materias`
 --
 
-LOCK TABLES `periodos` WRITE;
-/*!40000 ALTER TABLE `periodos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `periodos` ENABLE KEYS */;
+LOCK TABLES `materias` WRITE;
+/*!40000 ALTER TABLE `materias` DISABLE KEYS */;
+/*!40000 ALTER TABLE `materias` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -346,16 +125,14 @@ UNLOCK TABLES;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `registros` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tipo` tinyint(2) unsigned NOT NULL,
   `asignatura_id` int(10) unsigned NOT NULL,
   `usuario_id` int(10) unsigned NOT NULL,
-  `fecha` datetime NOT NULL,
+  `fecha` date NOT NULL,
   `entrada` time DEFAULT NULL,
   `salida` time DEFAULT NULL,
   `obs` text,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_REGISTRO` (`tipo`,`asignatura_id`,`usuario_id`,`fecha`),
-  KEY `IK_TIPO` (`tipo`),
+  UNIQUE KEY `UK_REGISTRO` (`asignatura_id`,`usuario_id`,`fecha`),
   KEY `IK_ASIGNATURA` (`asignatura_id`),
   KEY `IK_USUARIO` (`usuario_id`),
   CONSTRAINT `FK_REGISTROS_ASIGNATURA` FOREIGN KEY (`asignatura_id`) REFERENCES `asignaturas` (`id`),
@@ -389,7 +166,8 @@ CREATE TABLE `usuarios` (
   `nombre` varchar(40) NOT NULL,
   `acceso` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_LEGAJO` (`legajo`)
+  UNIQUE KEY `UK_LEGAJO` (`legajo`),
+  KEY `IK_ESTADO` (`estado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -399,7 +177,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,1,1,'$2a$10$JTFmlyWPAXBXVh.NW0azOuU1WvwL/W0q2vRQum7vM645Ote/Cy8Oq',NULL,1,'-','Administrador',NULL);
+INSERT INTO `usuarios` VALUES (1,1,1,'$2a$10$nwFCP67zUgGgrTjohyYRLe8U3bclVIw.3MEGS8Bc4ZqGL/qcHrNFm',1,1,'-','Administrador',NULL);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
