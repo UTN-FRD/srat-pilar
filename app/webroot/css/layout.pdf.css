@@ -38,3 +38,55 @@ td {
 
 	border: 1px solid #000;
 }
+
+.details {
+	margin-bottom: 20px;
+}
+
+.details,
+.details td,
+.details th {
+	border: none;
+}
+
+td div:first-child {
+	float: left;
+
+	width: 49%;
+
+	text-align: left;
+}
+
+td div:last-child {
+	float: right;
+
+	width: 49%;
+
+	text-align: right;
+}
+
+td div span {
+	font-weight: bold;
+}
+
+.report tbody td {
+	vertical-align: top;
+}
+
+.report tbody .empty td {
+	height: 20px;
+
+	text-align: center;
+	vertical-align: middle;
+}
+
+.report .row1,
+.report .row2 {
+	text-align: left;
+}
+
+.report .row3 {
+	width: 85px;
+
+	text-align: right;
+}

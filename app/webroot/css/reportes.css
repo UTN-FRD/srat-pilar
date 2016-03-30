@@ -10,3 +10,67 @@
  *
  * @author Jorge Alberto Cricelli <jacricelli@gmail.com>
  */
+
+.report-container .form-horizontal {
+	margin-top: 10px;
+}
+
+.report-container .control-label {
+	width: 125px;
+
+	text-align: left;
+}
+
+.report-container .controls {
+	margin-left: 50px;
+}
+
+.report-container .field-period:nth-child(1) {
+	display: none;
+}
+
+.report-container .field-period:nth-child(2) {
+	width: 115px;
+	margin-right: 4px;
+	margin-left: 0;
+}
+
+.report-container .field-period:nth-child(3) {
+	width: 75px;
+	margin-left: 4px;
+}
+
+.report-container .help-inline {
+	display: block;
+}
+
+.field-period + .help-inline {
+	margin-top: 5px;
+}
+
+.field-period + .help-inline {
+	margin-left: 72px;
+}
+
+.report-container .howto {
+	font-size: 1em;
+
+	position: relative;
+	top: -15px;
+
+	float: right;
+
+	width: 512px;
+}
+
+.report-container .form-actions {
+	margin-top: 65px;
+	padding-left: 145px;
+}
+
+.report-preview thead th:nth-child(3),
+.report-preview tbody td:nth-child(3) {
+	width: 85px;
+
+	text-align: right;
+}

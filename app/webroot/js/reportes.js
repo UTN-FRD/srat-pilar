@@ -10,3 +10,11 @@
  *
  * @author Jorge Alberto Cricelli <jacricelli@gmail.com>
  */
+
+$( function() {
+	$( ".report-preview" ).removeClass( "table-row-numbers" );
+
+	$( "#ReporteCarreraId:enabled" ).on( "change", function() {
+		$( "#ReporteAdminIndexForm" ).submit();
+	} );
+} );
