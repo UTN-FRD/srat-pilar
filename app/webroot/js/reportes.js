@@ -14,6 +14,17 @@
 $( function() {
 	$( ".report-preview" ).removeClass( "table-row-numbers" );
 
+	if ( $( "#ReporteCarreraId" ).is( ":disabled" ) ) {
+		$( ".field-period" ).attr( "disabled", true );
+
+		$( "#ReporteAdminIndexForm" ).on( "submit", function() {
+			$( ".field-period", this ).attr( "disabled", false )
+			.attr( "readonly", true );
+
+			return true;
+		} );
+	}
+
 	$( "#ReporteCarreraId:enabled" ).on( "change", function() {
 		$( "#ReporteAdminIndexForm" ).submit();
 	} );

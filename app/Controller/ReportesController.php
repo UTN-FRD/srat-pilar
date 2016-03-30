@@ -48,8 +48,14 @@ class ReportesController extends AppController {
 				'data' => array()
 			);
 		}
+		$carreras = $this->Reporte->Registro->getCarrerasList();
 
 		if ($this->request->is('post')) {
+			if (empty($carreras)) {
+				$this->Flash->info('No se han encontrado registros.');
+				$this->redirect(array('action' => 'index'));
+			}
+
 			$this->Reporte->create($this->request->data);
 			if ($this->Reporte->validates()) {
 				$options['data'] = $this->request->data['Reporte'];
@@ -58,7 +64,6 @@ class ReportesController extends AppController {
 			}
 		}
 
-		$carreras = $this->Reporte->Registro->getCarrerasList();
 		if (!$this->request->data) {
 			if ($options['data']) {
 				$this->request->data['Reporte'] = $options['data'];

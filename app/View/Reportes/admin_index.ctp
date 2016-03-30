@@ -42,7 +42,7 @@ $this->Html->addCrumb('Reportes');
 		echo $this->Form->input('carrera_id', array(
 			'class' => 'span5',
 			'default' => key($carreras),
-			'locked' => (count($carreras) == 1)
+			'locked' => (empty($carreras) || count($carreras) == 1)
 		));
 
 		$currentYear = date('Y');
