@@ -74,7 +74,7 @@ Configure::write('Cache.check', true);
  * Configuración de la sesión
  */
 Configure::write('Session', array(
-	'cookie' => 'utn_srat',
+	'cookie' => 'utn_pilar_srat',
 	'cookieTimeout' => 0,
 	'defaults' => 'cake'
 ));
